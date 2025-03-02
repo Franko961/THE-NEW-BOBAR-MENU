@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu The Newbobar</title>
+    <!-- Collegamento a Font Awesome per le icone -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;500&display=swap');
+
+        :root {
+            --primary-color: #9a8a78;
+            --dark-color: #1a1a1a;
+            --light-color: #ffffff;
+            --accent-color: #d4a853;
+            --bg-color: #0a0a0a;
+            --section-bg: #131313; /* Colore originale delle sezioni */
+            --section-glow: linear-gradient(
+                145deg,
+                rgba(255, 255, 255, 0.1),
+                rgba(255, 255, 255, 0.05)
+            ); /* Effetto lucido */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--light-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            color: var(--light-color);
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+            color: var(--accent-color);
+            text-transform: uppercase;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero {
+            background-image: url('https://via.placeholder.com/1600x600'); /* Sostituisci con l'URL della tua immagine */
+            background-size: cover;
+            background-position: center;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding-top: 20px; /* Aggiunto padding superiore per evitare che il titolo vada troppo in alto */
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .menu-section {
+            margin: 30px 0;
+            padding-bottom: 30px; /* Spaziatura inferiore per l'interlinea */
+            border-bottom: 2px solid var(--accent-color); /* Interlinea color oro */
+        }
+
+        .menu-section:last-child {
+            border-bottom: none; /* Rimuove l'interlinea dall'ultima sezione */
+        }
+
+        .menu-heading {
+            font-family: 'Cinzel', serif;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            color: var(--accent-color);
+            font-size: 2rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu-heading i {
+            margin-right: 10px; /* Spazio tra l'icona e il testo */
+            font-size: 1.5rem;
+        }
+
+        .menu-container {
+            background: var(--section-bg);
+            background-image: var(--section-glow); /* Effetto lucido */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Ombra per profondità */
+            display: none; /* Nascondi il menu inizialmente */
+        }
+
+        .menu-container.active {
+            display: block; /* Mostra il menu quando la sezione è attiva */
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid var(--primary-color);
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .price {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .wine-section ul {
+            padding-left: 20px;
+        }
+
+        .wine-section ul li {
+            padding: 5px 0;
+        }
+
+        .footer-section {
+            text-align: center;
+            margin: 30px 0;
+            padding-bottom: 30px;
+            border-bottom: 2px solid var(--accent-color); /* Interlinea color oro */
+        }
+
+        .footer-section p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            color: var(--light-color);
+            margin: 5px 0;
+        }
+
+        .footer-section:last-child {
+            border-bottom: none; /* Rimuove l'interlinea dall'ultima sezione */
+        }
+
+        .social-icons {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 15px; /* Spazio tra le icone */
+        }
+
+        .social-icons a {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--light-color);
+        }
+
+        /* Media Queries per dispositivi mobili */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem; /* Riduci la dimensione del titolo su dispositivi mobili */
+                margin-top: 20px; /* Aggiunto margine superiore per evitare sovrapposizioni */
+            }
+
+            .subtitle {
+                font-size: 1rem; /* Riduci la dimensione del sottotitolo su dispositivi mobili */
+            }
+
+            .menu-heading {
+                font-size: 1.5rem; /* Riduci la dimensione del titolo delle sezioni su dispositivi mobili */
+            }
+
+            .hero {
+                height: 200px; /* Riduci l'altezza della sezione hero su dispositivi mobili */
+                padding-top: 10px; /* Aggiunto padding superiore per evitare che il titolo vada troppo in alto */
+            }
+
+            .container {
+                padding: 0 10px; /* Riduci il padding del contenitore su dispositivi mobili */
+            }
+
+            /* Allineamento icona nella sezione International Cocktail */
+            .menu-heading i.fa-cocktail {
+                margin-right: 5px; /* Riduci lo spazio tra l'icona e il testo */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>The New Bobar Menù</h1>
+            <p class="subtitle">Scopri la nostra selezione di caffè, bevande, vini e molto altro</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Aggiunto margine inferiore per creare spazio -->
+        <div style="margin-bottom: 40px;"></div>
+
+        <!-- Sezione Caffetteria -->
+        <div class="menu-section">
+            <h2 class="menu-heading" onclick="toggleMenu(this)">
+                <i class="fas fa-coffee"></i> <!-- Icona caffè -->
+                Caffetteria
+            </h2>
+            <div class="menu-container">
+                <div class="menu-item">
+                    <span>Caffè</span>
+                    <span class="price">€1.30</span>
+                </div>
+                <div class="menu-item">
+                    <span>Decaffeinato</span>
+                    <span class="price">€1.40</span>
+                </div>
+                <div class="menu-item">
+                    <span>Caffè corretto</span>
+                    <span class="price">€2.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Caffè del marinaio</span>
+                    <span class="price">€4.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Caffè shakerato</span>
+                    <span class="price">€3.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Caffè shakerato corretto</span>
+                    <span class="price">€3.50</span>
+                </div>
+                <div class="menu-item">
+                    <span>Caffè doppio</span>
+                    <span class="price">€2.60</span>
+                </div>
+                <div class="menu-item">
+                    <span>Caffè divisa</span>
+                    <span class="price">€1.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Caffè macchiato latte differente</span>
+                    <span class="price">€1.60</span>
+                </div>
+                <div class="menu-item">
+                    <span>Cappuccino</span>
+                    <span class="price">€2.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Cappuccino senza lattosio</span>
+                    <span class="price">€2.30</span>
+                </div>
+                <div class="menu-item">
+                    <span>Cappuccino soia/riso</span>
+                    <span class="price">€2.30</span>
+                </div>
+                <div class="menu-item">
+                    <span>Cappuccino orzo/ginseng</span>
+                    <span class="price">€2.50</span>
+                </div>
+                <div class="menu-item">
+                    <span>Moretto</span>
+                    <span class="price">€1.80</span>
+                </div>
+                <div class="menu-item">
+                    <span>Moretto latte differente</span>
+                    <span class="price">€2.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Orzo piccolo</span>
+                    <span class="price">€1.50</span>
+                </div>
+                <div class="menu-item">
+                    <span>Orzo grande</span>
+                    <span class="price">€2.30</span>
+                </div>
+                <div class="menu-item">
+                    <span>Ginseng piccolo</span>
+                    <span class="price">€1.60</span>
+                </div>
+                <div class="menu-item">
+                    <span>Ginseng grande</span>
+                    <span class="price">€2.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Latte bianco</span>
+                    <span class="price">€2.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Latte macchiato</span>
+                    <span class="price">€2.50</span>
+                </div>
+                <div class="menu-item">
+                    <span>Latte particolare bianco</span>
+                    <span class="price">€2.20</span>
+                </div>
+                <div class="menu-item">
+                    <span>Succo di frutta</span>
+                    <span class="price">€3.00</span>
+                </div>
+                <!-- NUOVI PRODOTTI AGGIUNTI -->
+                <div class="menu-item">
+                    <span>Succo frutta (Melograno, Ananas, Mirtillo)</span>
+                    <span class="price">€3.50</span>
+                </div>
+                <div class="menu-item">
+                    <span>Spremuta Arancia/Pompelmo</span>
+                    <span class="price">€3.50</span>
+                </div>
+                <div class="menu-item">
+                    <span>Cornetto grande</span>
+                    <span class="price">€1.50</span>
+                </div>
+                <div class="menu-item">
+                    <span>Cornetto piccolo</span>
+                    <span class="price">€1.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Trancio torta</span>
+                    <span class="price">€2.50</span>
+                </div>
+                <div class="menu-item">
+                    <span>Trancio crostata</span>
+                    <span class="price">€2.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Biscotti secchi</span>
+                    <span class="price">€0.80</span>
+                </div>
+                <div class="menu-item">
+                    <span>Sfogliatelle</span>
+                    <span class="price">€1.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Peschetta</span>
+                    <span class="price">€1.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Panino grande farcito</span>
+                    <span class="price">€5.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Panino colorato piccolo farcito</span>
+                    <span class="price">€2.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Tramezzino</span>
+                    <span class="price">€3.50</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sezione Bevande -->
+        <div class="menu-section">
+            <h2 class="menu-heading" onclick="toggleMenu(this)">
+                <i class="fas fa-glass-martini-alt"></i> <!-- Icona bevande -->
+                Bevande
+            </h2>
+            <div class="menu-container">
+                <div class="menu-item">
+                    <span>Acqua grande</span>
+                    <span class="price">€1.50</span>
+                </div>
+                <div class="menu-item">
+                    <span>Acqua piccola</span>
+                    <span class="price">€1.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Aperol soda</span>
+                    <span class="price">€4.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Coca cola lattina</span>
+                    <span class="price">€2.50</span>
+                </div>
+                <div class="menu-item">
+                    <span>Coca zero lattina</span>
+                    <span class="price">€2.50</span>
+                </div>
+                <div class="menu-item">
+                    <span>Coca cola bottiglia</span>
+                    <span class="price">€3.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Coca zero bottiglia</span>
+                    <span class="price">€3.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Sprite lattina</span>
+                    <span class="price">€2.50</span>
+                </div>
+                <div class="menu-item">
+                    <span>Sprite bottiglia</span>
+                    <span class="price">€3.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Fanta lattina</span>
+                    <span class="price">€2.50</span>
+                </div>
+                <div class="menu-item">
+                    <span>Fanta bottiglia</span>
+                    <span class="price">€3.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Tè bottiglia</span>
+                    <span class="price">€3.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Bitter rosso</span>
+                    <span class="price">€4.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Chinotto</span>
+                    <span class="price">€3.50</span>
+                </div>
+                <div class="menu-item">
+                    <span>Cedrata</span>
+                    <span class="price">€3.50</span>
+                </div>
+                <div class="menu-item">
+                    <span>Acqua tonica bottiglia</span>
+                    <span class="price">€3.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Lemon soda bottiglia</span>
+                    <span class="price">€3.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Estate bricco</span>
+                    <span class="price">€4.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Monster</span>
+                    <span class="price">€4.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Redbull</span>
+                    <span class="price">€4.50</span>
+                </div>
+                <div class="menu-item">
+                    <span>Powered</span>
+                    <span class="price">€5.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Birre in bottiglia</span>
+                    <span class="price">€4.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Leffe</span>
+                    <span class="price">€5.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Ipa</span>
+                    <span class="price">€6.00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sezione Cena e Aperitivi -->
+        <div class="menu-section">
+            <h2 class="menu-heading" onclick="toggleMenu(this)">
+                <i class="fas fa-utensils"></i> <!-- Icona cena -->
+                Cena e Aperitivi
+            </h2>
+            <div class="menu-container">
+                <div class="menu-item">
+                    <span>Tagliere misto cenato compreso di bevuta</span>
+                    <span class="price">€12.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Aperifish - Frittura di pesce con bevuta</span>
+                    <span class="price">€15.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Tagliere solo affettati compreso di bevuta</span>
+                    <span class="price">€10.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Tagliere fantasie di verdure compreso di bevuta</span>
+                    <span class="price">€10.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Olive all'ascolana</span>
+                    <span class="price">€7.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Olive cacio e pepe</span>
+                    <span class="price">€7.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Olive al tartufo</span>
+                    <span class="price">€8.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Formaggio fritto</span>
+                    <span class="price">€7.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Patate fritte porzione grande</span>
+                    <span class="price">€7.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Hamburger di scottona al piatto/panino con patate fritte</span>
+                    <span class="price">€10.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Cotoletta al piatto con patatine fritte</span>
+                    <span class="price">€10.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Pizza al piatto margherita</span>
+                    <span class="price">€8.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Pizza al piatto farcita</span>
+                    <span class="price">€10.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Primo dello chef</span>
+                    <span class="price">€12.00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sezione Vini -->
+        <div class="menu-section">
+            <h2 class="menu-heading" onclick="toggleMenu(this)">
+                <i class="fas fa-wine-glass-alt"></i> <!-- Icona vini -->
+                Vini
+            </h2>
+            <div class="menu-container">
+                <div class="wine-section">
+                    <div class="menu-item">
+                        <span>TERRAFAGETO</span>
+                    </div>
+                    <div class="menu-item">
+                        <span>Rossopiceno</span>
+                        <span class="price">€25.00</span>
+                    </div>
+                    <div class="menu-item">
+                        <span>Passerina</span>
+                        <span class="price">€22.00</span>
+                    </div>
+                    <div class="menu-item">
+                        <span>Pecorino</span>
+                        <span class="price">€25.00</span>
+                    </div>
+                    <div class="menu-item">
+                        <span>SANTORI</span>
+                    </div>
+                    <div class="menu-item">
+                        <span>Rosso Piceno Superiore</span>
+                        <span class="price">€30.00</span>
+                    </div>
+                    <div class="menu-item">
+                        <span>Passerina</span>
+                        <span class="price">€22.00</span>
+                    </div>
+                    <div class="menu-item">
+                        <span>Pecorino</span>
+                        <span class="price">€25.00</span>
+                    </div>
+                    <div class="menu-item">
+                        <span>MARONI</span>
+                    </div>
+                    <div class="menu-item">
+                        <span>Passerina</span>
+                        <span class="price">€22.00</span>
+                    </div>
+                    <div class="menu-item">
+                        <span>Pecorino</span>
+                        <span class="price">€25.00</span>
+                    </div>
+                    <div class="menu-item">
+                        <span>Rosso Piceno</span>
+                        <span class="price">€27.00
+                    </div>
+                    <div class="menu-item">
+                        <span>TENUTA LA RISERVA</span>
+                    </div>
+                    <div class="menu-item">
+                        <span>Passerina Brut Vives</span>
+                        <span class="price">€30.00</span>
+                    </div>
+                    <div class="menu-item">
+                        <span>Passerina Lente</span>
+                        <span class="price">€22.00</span>
+                    </div>
+                    <div class="menu-item">
+                         <span>Rosso Piceno</span> 
+                         <span class="price">€26.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sezione Tisane -->
+        <div class="menu-section">
+            <h2 class="menu-heading" onclick="toggleMenu(this)">
+                <i class="fas fa-mug-hot"></i> <!-- Icona tisane -->
+                Tisane
+            </h2>
+            <div class="menu-container">
+                <div class="menu-item">
+                    <span>Frutti rossi</span>
+                    <span class="price">€4.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Arancia cannella</span>
+                    <span class="price">€4.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Fruit love</span>
+                    <span class="price">€4.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Ginger love</span>
+                    <span class="price">€4.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>The verde</span>
+                    <span class="price">€4.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Gelsomino</span>
+                    <span class="price">€4.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>The nero affumicato</span>
+                    <span class="price">€4.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>The nero</span>
+                    <span class="price">€4.00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sezione International Cocktail -->
+        <div class="menu-section">
+            <h2 class="menu-heading" onclick="toggleMenu(this)">
+                <i class="fas fa-cocktail"></i> <!-- Icona cocktail -->
+                International Cocktail
+            </h2>
+            <div class="menu-container">
+                <div class="menu-item">
+                    <span>Americano</span>
+                    <span class="price">€7.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Pina colada</span>
+                    <span class="price">€8.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Aldila</span>
+                    <span class="price">€8.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Spritz</span>
+                    <span class="price">€6.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Campari spritz</span>
+                    <span class="price">€6.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Lemon spritz</span>
+                    <span class="price">€6.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Blue spritz</span>
+                    <span class="price">€6.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Select spritz</span>
+                    <span class="price">€6.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Hugo spritz</span>
+                    <span class="price">€6.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Jagherbomb</span>
+                    <span class="price">€6.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Gin tonic/lemon/base</span>
+                    <span class="price">€7.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Gin special</span>
+                    <span class="price">€9.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Vodka lemon/tonic</span>
+                    <span class="price">€7.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Vodka special</span>
+                    <span class="price">€9.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Vodka redbull</span>
+                    <span class="price">€8.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Campari soda asporto</span>
+                    <span class="price">€3.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Campari e prosecco</span>
+                    <span class="price">€5.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Campari soda ghiaccio arancia</span>
+                    <span class="price">€4.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Campari fanta</span>
+                    <span class="price">€5.00</span>
+                </div>
+                <div class="menu-item">
+                    <span>Campari vino</span>
+                    <span class="price">€5.00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sezione Footer -->
+        <div class="footer-section">
+            <p>WWW.THENEWBOBARSBT.COM</p>
+            <p>Via C. Colombo 6, 63074 SBT</p>
+            <p>333 857 0172</p>
+            <div class="social-icons">
+                <!-- Icona Facebook -->
+                <a href="https://www.facebook.com/profile.php?id=61557219813228&locale=it_IT" target="_blank">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <!-- Icona Instagram -->
+                <a href="https://www.instagram.com/thenewbobarsbt/" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu(element) {
+            const section = element.nextElementSibling;
+            section.classList.toggle('active');
+        }
+    </script>
+
+</body>
+</html>
